@@ -27,10 +27,6 @@
     </main>
     
     <script>
-        let income = document.getElementById('income').value
-        document.getElementById('income').value = ''
-        
-
         // income allocation by % TODO: make this editable
         var allocation = {
             tithe: 10,
@@ -41,10 +37,12 @@
         }
 
         const getIncomeBreakdown = () => {
+            let income = document.getElementById('income').value
+            document.getElementById('income').value = ''
             let breakdown = []
 
             for(item in allocation){
-                breakdown.push(`${item[0].toUpperCase()}${item.slice(1)}: NGN${income * (allocation[item]/100)}`)
+                breakdown.push(`${item[0].toUpperCase()}${item.slice(1)}: NGN${Number(income * (allocation[item]/100)).toLocaleString()}`)
             }
 
             _showBreakdown(breakdown)
