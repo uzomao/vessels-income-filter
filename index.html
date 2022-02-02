@@ -41,8 +41,12 @@
             document.getElementById('income').value = ''
             let breakdown = []
 
+            // for(item in allocation){
+            //     breakdown.push(`${item[0].toUpperCase()}${item.slice(1)}: NGN${Number(income * (allocation[item]/100)).toLocaleString()}`)
+            // }
+
             for(item in allocation){
-                breakdown.push(`${item[0].toUpperCase()}${item.slice(1)}: NGN${Number(income * (allocation[item]/100)).toLocaleString()}`)
+                breakdown.push({item, amount: Number(income * (allocation[item]/100)), allocation: allocation[item]})
             }
 
             _showBreakdown(breakdown)
@@ -53,9 +57,13 @@
 
             breakdownDiv.innerHTML = "<h3>Your income breakdown:</h3>"
 
-            for(item of breakdown){
-                breakdownDiv.innerHTML += `<p>${item}</p>`
+            for({item, amount, allocation} of breakdown){
+                breakdownDiv.innerHTML += `<p>${_capitalize(item)}: NGN${amount.toLocaleString()} <span style="color: grey;">(${allocation}%)</span></p>`
             }
+        }
+
+        const _capitalize = (word) => {
+            return `${word[0].toUpperCase()}${word.slice(1)}`
         }
     </script>
 </body>
